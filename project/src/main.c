@@ -44,7 +44,7 @@ int main(int argc, const char** argv) {
         }
         case TST_REC_IMPL: {
             int n;
-            scanf("%d",n);
+            scanf("%i", &n);
             int count=1;
             rec(count,n);
             break;
