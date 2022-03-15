@@ -2,6 +2,7 @@
 #include "isprime.h"
 #include <stdio.h>
 #include <stdlib.h>
+
 #define ERR_ARGS_COUNT (-1)
 #define ERR_WRONG_FLG (-2)
 
@@ -42,7 +43,7 @@ int main(int argc, const char** argv) {
             break;
         }
         case TST_FOO_IMPL: {
-            if (argc = 4) {
+            if (argc == 4) {
                 int base = atoi(data);
                 int pow =  atoi(argv[3]);
                 int res = custom_pow(base, pow);    // TODO: Implement me
@@ -59,6 +60,7 @@ int main(int argc, const char** argv) {
             // This function MUST be implemented in
             // a separate C-module (not in `main` or `utils` module)
         }
+        break;
         default: {
             return ERR_WRONG_FLG;
         }
