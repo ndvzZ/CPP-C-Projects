@@ -1,4 +1,6 @@
 #include "utils.h"
+#include "recursion.h"
+#include "isprime.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -9,6 +11,7 @@
 #define TST_FOO_IMPL    2
 #define TST_MOD_IMPL    3
 #define TST_REC_IMPL    4
+
 
 int main(int argc, const char** argv) {
     if (argc < 3) {
@@ -30,7 +33,7 @@ int main(int argc, const char** argv) {
             if (argc == 4) {
                 int base = atoi(data);
                 int pow =  atoi(argv[3]);
-                int res = custom_pow(base, pow);    
+                int res = custom_pow(base, pow);
                  printf("%i\n", res);
             } else {
                 return ERR_ARGS_COUNT;
@@ -39,14 +42,14 @@ int main(int argc, const char** argv) {
         }
         case TST_MOD_IMPL: {
             int num = atoi(data);
-            printf("%d\n",is_prime(num));
+            printf("%d\n", is_prime(num));
            break;
         }
         case TST_REC_IMPL: {
-            int n;
-            scanf("%i", &n);
-            int count=1;
-            rec(count,n);
+            int n = atoi(data);
+            // scanf("%i", &n);
+            int count = 1;
+            rec(count, n);
             break;
         }
 

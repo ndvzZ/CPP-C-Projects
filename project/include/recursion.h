@@ -1,6 +1,6 @@
-#ifndef REC_H
-#define REC_H
+#ifndef PROJECT_INCLUDE_RECURSION_H_
+#define PROJECT_INCLUDE_RECURSION_H_
 
 int rec(int count, int n);
 
-#endif
+#endif  // PROJECT_INCLUDE_RECURSION_H_

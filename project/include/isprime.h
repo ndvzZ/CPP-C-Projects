@@ -1,6 +1,6 @@
-#ifndef PRIME_H
-#define PRIME_H
+#ifndef PROJECT_INCLUDE_ISPRIME_H_
+#define PROJECT_INCLUDE_ISPRIME_H_
 
 int is_prime(int num);
 
-#endif
+#endif  // PROJECT_INCLUDE_ISPRIME_H_
