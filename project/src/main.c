@@ -26,7 +26,7 @@ int main(int argc, const char** argv) {
         case TST_FOO_FIX: {
             int to = atoi(data);
             size_t ticks_count = timer_from(to);
-            printf("%zu\n", ticks_count);
+            printf("%zu\n\n", ticks_count);
             break;
         }
         case TST_FOO_IMPL: {
@@ -34,7 +34,7 @@ int main(int argc, const char** argv) {
                 int base = atoi(data);
                 int pow =  atoi(argv[3]);
                 int res = custom_pow(base, pow);
-                 printf("%i\n", res);
+                 printf("%i", res);
             } else {
                 return ERR_ARGS_COUNT;
             }
