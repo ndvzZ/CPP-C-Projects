@@ -1,0 +1,6 @@
+#ifndef PROJECT_INCLUDE_FROMONETON_H_
+#define PROJECT_INCLUDE_FROMONETON_H_
+
+int oneToN(int num);
+
+#endif  // PROJECT_INCLUDE_FROMONETON_H_
