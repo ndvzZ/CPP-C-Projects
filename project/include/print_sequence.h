@@ -1,0 +1,6 @@
+#ifndef PROJECT_INCLUDE_PRINT_SEQUENCE_H_
+#define PROJECT_INCLUDE_PRINT_SEQUENCE_H_
+
+int print_sequence(int num);
+
+#endif  // PROJECT_INCLUDE_PRINT_SEQUENCE_H_
