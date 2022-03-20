@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 #include "utils.h"
-#include "fromOneToN.h"
+#include "print_sequence.h"
 #include "isprime.h"
 
 #define ERR_ARGS_COUNT (-1)
@@ -76,7 +76,7 @@ int main(int argc, const char** argv) {
                 return ERR_STRTOL;
             }
 
-            oneToN(n);
+            print_sequence(n);
             break;
         }
 

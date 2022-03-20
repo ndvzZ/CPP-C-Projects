@@ -6,7 +6,7 @@ SRCS = \
        project/src/main.c \
        project/src/utils.c \
 	   project/src/isprime.c \
-	   project/src/fromOneToN.c
+	   project/src/print_sequence.c
 
 .PHONY: all build rebuild check test clean
 
