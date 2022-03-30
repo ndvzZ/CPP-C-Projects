@@ -3,7 +3,7 @@
 
 void updateRec(FILE *ofPTR_1, FILE *ofPTR_2, FILE *updateRecord) {
     Data client_data, transfer;
-    while (fscanf(ofPTR_1, "%d%10s%10s%10s%12s%lf%lf%lf",
+    while (fscanf(ofPTR_1, "%d%20s%20s%30s%15s%lf%lf%lf",
                   &client_data.number,
                   client_data.name,
                   client_data.surname,

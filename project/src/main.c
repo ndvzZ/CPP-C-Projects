@@ -43,10 +43,8 @@ int main(void) {
             } else {
                 updateRec(Ptr_1, Ptr_2, Ptr_3);
                 fclose(Ptr_1);
-                free(Ptr_1);
                 fclose(Ptr_2);
-                fclose(Ptr_3);
-            }
+                fclose(Ptr_3);}
             break;
         default:
             puts("error");
@@ -54,5 +52,6 @@ int main(void) {
         }
         printf("%s", "please enter action\n1 enter data client:\n2 enter data transaction:\n3 update base\n");
     }
+    void test_write_to_file();
     return 0;
 }

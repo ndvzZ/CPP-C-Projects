@@ -3,17 +3,7 @@
 #define PROJECT_INCLUDE_UTILS_H_
 
 #include <stdio.h>
-
-struct masterRecord {
-    int number;
-    char name[20];
-    char surname[20];
-    char addres[30];
-    char telNumber[15];
-    double indebtedness;
-    double credit_limit;
-    double cash_payments;};
-typedef  struct  masterRecord Data;
+#include "data_struct.h"
 
 void masterWrite(FILE *ofPTR);
 void transactionWrite(FILE *ofPtr);

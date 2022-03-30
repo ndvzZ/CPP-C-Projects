@@ -12,7 +12,7 @@ void masterWrite(FILE *ofPTR) {
            "7 Client credit limit: ",
            "8 Client cash payments: ");
     while (
-        scanf("%d%10s%10s%10s%12s%lf%lf%lf",
+        scanf("%d%20s%20s%30s%15s%lf%lf%lf",
               &Client.number,
               Client.name,
               Client.surname,
