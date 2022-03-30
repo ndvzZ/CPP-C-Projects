@@ -21,7 +21,7 @@ void test_write_to_file() {
               &got_data.credit_limit,
               &got_data.cash_payments);
     write_to_file(filename1, &got_data);
-    read_from_file(filename, &got_data);
+    read_from_file(filename, &expected_data);
     read_from_file(filename1, &got_data);
     if (&expected_data == &got_data)
     printf("%s", "Succeed");
