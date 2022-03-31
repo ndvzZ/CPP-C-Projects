@@ -1,5 +1,6 @@
 
 #include <unistd.h>
+#include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -23,26 +24,37 @@ void test_write_to_file() {
     write_to_file(filename1, &got_data);
     read_from_file(filename, &expected_data);
     read_from_file(filename1, &got_data);
-    if (&expected_data == &got_data)
-    printf("%s", "Succeed");
-    printf("%s", "Error");
+    if (&expected_data == &got_data) {
+        printf("%s", "Succeed\n");
+    }
+    printf("%s", "Error\n");
 }
+
 void write_to_file(const char *filename, Data *data) {
     int f_d = open(filename, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
     if (f_d == -1) {
         perror("error");
     }
     write(f_d, data, sizeof(data));
+    if (f_d > 0) {
+        printf("%s", "Write Succeed\n");
+    }
+    printf("%s", "Write Error\n");
     close(f_d);
 }
+
 void read_from_file(const char *filename, Data *data) {
     int f_d = open(filename, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
     if (f_d == -1) {
         perror("error");
     }
-    char buffer[sizeof(data)+1];
+//   char buffer[sizeof(data)+1];
     while (f_d > 0) {
-    f_d = read(f_d, buffer, sizeof(buffer));
+    f_d = read(f_d, &data, sizeof(Data));
     }
+    if (f_d > 0) {
+        printf("%s", "Read Succeed\n");
+    }
+    printf("%s", "Read Error\n");
     close(f_d);
 }
