@@ -24,7 +24,13 @@ void test_write_to_file() {
     write_to_file(filename1, &got_data);
     read_from_file(filename, &expected_data);
     read_from_file(filename1, &got_data);
-    if (&expected_data == &got_data) {
+    if ((expected_data.number == got_data.number) &&
+    (expected_data.name == got_data.name) &&
+    (expected_data.surname == got_data.surname) &&
+    (expected_data.addres == got_data.addres) &&
+    (expected_data.indebtedness == got_data.indebtedness) &&
+    (expected_data.credit_limit == got_data.credit_limit) &&
+    (expected_data.cash_payments == got_data.cash_payments)) {
         printf("%s", "Succeed\n");
     }
     printf("%s", "Error\n");
@@ -36,10 +42,6 @@ void write_to_file(const char *filename, Data *data) {
         perror("error");
     }
     write(f_d, data, sizeof(data));
-    if (f_d > 0) {
-        printf("%s", "Write Succeed\n");
-    }
-    printf("%s", "Write Error\n");
     close(f_d);
 }
 
@@ -49,9 +51,5 @@ void read_from_file(const char *filename, Data *data) {
         perror("error");
     }
     f_d = read(f_d, &data, sizeof(Data));
-    if (f_d > 0) {
-        printf("%s", "Read Succeed\n");
-    }
-    printf("%s", "Read Error\n");
     close(f_d);
 }
