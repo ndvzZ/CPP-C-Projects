@@ -48,7 +48,6 @@ void read_from_file(const char *filename, Data *data) {
     if (f_d == -1) {
         perror("error");
     }
-//   char buffer[sizeof(data)+1];
     while (f_d > 0) {
     f_d = read(f_d, &data, sizeof(Data));
     }
