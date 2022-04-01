@@ -6,7 +6,7 @@
 #include "data_struct.h"
 
 void test_write_to_file();
-void read_from_file(FILE *Ptr, Data compare_base);
-void write_to_file(FILE *Ptr, Data writing_data);
+void read_from_file(FILE *File_ptr, Data compare_base);
+void write_to_file(FILE *File_ptr, Data writing_data);
 
 #endif   // PROJECT_INCLUDE_MAIN_MODULE_H_

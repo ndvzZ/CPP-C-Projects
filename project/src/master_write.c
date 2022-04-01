@@ -1,6 +1,6 @@
 #include "utils.h"
 
-void masterWrite(FILE *ofPTR) {
+void masterWrite(FILE *new_record_ptr) {
     Data Client;
     printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n\n",
            "1 Number account: ",
@@ -21,7 +21,7 @@ void masterWrite(FILE *ofPTR) {
               &Client.indebtedness,
               &Client.credit_limit,
               &Client.cash_payments) != -1) {
-        fprintf(ofPTR, "%-12d%-11s%-11s%-16s%20s%12.2f%12.2f%12.2f\n",
+        fprintf(new_record_ptr, "%-12d%-11s%-11s%-16s%20s%12.2f%12.2f%12.2f\n",
                 Client.number,
                 Client.name,
                 Client.surname,
