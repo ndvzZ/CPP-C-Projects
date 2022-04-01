@@ -41,7 +41,7 @@ int main(void) {
             Ptr_2 = fopen(transaction, "r");
             Ptr_3 = fopen(updated, "a+");
             if ((Ptr_1 == NULL) || (Ptr_2 == NULL) || (Ptr_3 == NULL)) {
-                puts("exit");
+                puts("error");
             } else {
                 updateRec(Ptr_1, Ptr_2, Ptr_3);
                 fclose(Ptr_1);

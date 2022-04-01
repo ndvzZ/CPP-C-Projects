@@ -26,7 +26,6 @@ void updateRec(FILE *ofPTR_1, FILE *ofPTR_2, FILE *updateRecord) {
                 client_data.indebtedness,
                 client_data.credit_limit,
                 client_data.cash_payments);
-        rewind(updateRecord);
         rewind(ofPTR_2);
     }
 }
