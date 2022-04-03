@@ -41,6 +41,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: make mytest
+      - name: Upload artifacts
+      uses: actions/upload-artifact_test@v2
+      with:
+        path: main_test.out
         if: failure()
         with:
           path: valgrind.log
