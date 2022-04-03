@@ -38,15 +38,6 @@ void test_write_to_file() {
 }
 
 void write_to_file(FILE *File_ptr, Data writing_data) {
-    fprintf(File_ptr, "%-12d%-11s%-11s%-16s%20s%12.2f%12.2f%12.2f\n",
-                writing_data.number,
-                writing_data.name,
-                writing_data.surname,
-                writing_data.addres,
-                writing_data.telNumber,
-                writing_data.indebtedness,
-                writing_data.credit_limit,
-                writing_data.cash_payments);
     if (fprintf(File_ptr, "%-12d%-11s%-11s%-16s%20s%12.2f%12.2f%12.2f\n",
                 writing_data.number,
                 writing_data.name,
@@ -61,15 +52,6 @@ void write_to_file(FILE *File_ptr, Data writing_data) {
 
 void read_from_file(FILE *File_ptr, Data compare_base) {
     Data data;
-    fscanf(File_ptr, "%d%20s%20s%30s%15s%lf%lf%lf",
-                &data.number,
-                data.name,
-                data.surname,
-                data.addres,
-                data.telNumber,
-                &data.indebtedness,
-                &data.credit_limit,
-                &data.cash_payments);
     if (fscanf(File_ptr, "%d%20s%20s%30s%15s%lf%lf%lf",
                 &data.number,
                 data.name,
