@@ -48,8 +48,6 @@ void write_to_file(FILE *File_ptr, Data writing_data) {
 
 void read_from_file(FILE *File_ptr, Data compare_base) {
     Data data;
-    char value_to_str1[16];
-    char value_to_str2[16];
     fscanf(File_ptr, "%d%20s%20s%30s%15s%lf%lf%lf",
                 &data.number,
                 data.name,
@@ -59,21 +57,14 @@ void read_from_file(FILE *File_ptr, Data compare_base) {
                 &data.indebtedness,
                 &data.credit_limit,
                 &data.cash_payments);
-    if ((
-        snprintf(value_to_str1, sizeof(value_to_str1), "%d", data.number) !=
-        snprintf(value_to_str2, sizeof(value_to_str2), "%d", compare_base.number)) +
-    strncmp(data.name, compare_base.name, 20) +
-    strncmp(data.surname, compare_base.surname, 20) +
-    strncmp(data.addres, compare_base.addres, 30) +
-    (
-    snprintf(value_to_str1, sizeof(value_to_str1), "%g", data.indebtedness) !=
-    snprintf(value_to_str2, sizeof(value_to_str2), "%g", compare_base.indebtedness)) +
-    (
-    snprintf(value_to_str1, sizeof(value_to_str1), "%g", data.credit_limit) !=
-    snprintf(value_to_str2, sizeof(value_to_str2), "%g", compare_base.credit_limit)) +
-    (
-    snprintf(value_to_str1, sizeof(value_to_str1), "%g", data.cash_payments) !=
-    snprintf(value_to_str2, sizeof(value_to_str2), "%g", compare_base.cash_payments)) == 0) {
+    if (
+        (data.number == compare_base.number) &&
+        (strncmp(data.name, compare_base.name, 20) == 0) &&
+        (strncmp(data.surname, compare_base.surname, 20) == 0) &&
+        (strncmp(data.addres, compare_base.addres, 30) == 0) &&
+        (data.indebtedness == compare_base.indebtedness) &&
+        (data.credit_limit == compare_base.credit_limit) &&
+        (data.cash_payments == compare_base.cash_payments)) {
         printf("%s", "Succeed\n");
     }
     printf("%s", "Error\n");
