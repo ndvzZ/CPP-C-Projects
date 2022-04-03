@@ -2,13 +2,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "utils.h"
-#include "main_module.h"
 
 enum actions {
     ENTER_DATA_CLIENT = 1,
     ENTER_DATA_TRANSACTION,
     UPDATE_BASE,
-    TESTING,
     EXIT = -1
 };
 
@@ -47,9 +45,6 @@ int main(void) {
                 fclose(Ptr_1);
                 fclose(Ptr_2);
                 fclose(Ptr_3);}
-            break;
-            case TESTING:
-            test_write_to_file();
             break;
         default:
             puts("error");
