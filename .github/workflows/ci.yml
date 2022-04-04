@@ -34,17 +34,6 @@ jobs:
       - run: make memtest
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
-  mytest:
-    runs-on: ubuntu-latest
-    container: leshiy1295/gcc_linters_valgrind
-    needs: [memtest]
-    steps:
-      - uses: actions/checkout@v2
-      - run: make mytest
-      - name: Upload artifacts
-      uses: actions/upload-artifact_test@v2
-      with:
-        path: main_test.out
         if: failure()
         with:
           path: valgrind.log
