@@ -9,8 +9,9 @@
 #define transaction "transaction.dat"
 #define updated "blackrecord.dat"
 
-void masterWrite(FILE *new_record_ptr);
-void transactionWrite(FILE *transaction_ptr);
-void updateRec(FILE *record_ptr, FILE *transact_ptr, FILE *transact_record_ptr);
+void personDataWrite(const char *new_record);
+void transactionWrite(const char *transaction_filename);
+void updateRec(const char *record_filename, const char *transaction_filename,
+const char *transact_record_filename);
 
 #endif   // PROJECT_INCLUDE_UTILS_H_

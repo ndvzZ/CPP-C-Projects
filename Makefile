@@ -6,13 +6,16 @@ HDRS_DIR_TEST = test/include
 SRCS = \
 		project/src/main.c \
 		project/src/transaction_write.c \
-		project/src/master_write.c \
-		project/src/update_record.c 
+		project/src/person_data_write.c \
+		project/src/update_record.c \
+		project/src/file_openers.c \
+		project/src/print.c
 
 SRCS_TEST = \
 		test/src/main.c \
-		test/src/my_test_utils.c \
-		test/src/is_equal.c
+		test/src/tst_read_from_file.c \
+		test/src/is_equal.c \
+		test/src/tst_write_to_file.c	
 
 .PHONY: all build rebuild check test memtest clean mytest
 

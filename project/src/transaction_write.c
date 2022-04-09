@@ -1,17 +1,17 @@
-
+#include <stdio.h>
 #include "utils.h"
+#include "file_openers.h"
+#include "print.h"
 
-void transactionWrite(FILE *transaction_ptr) {
+void transactionWrite(const char *transaction_filename) {
     Data transfer;
-    printf("%s\n%s\n",
-           "1 Number account: ",
-           "2 Client cash payments: ");
+    FILE *transaction_ptr = file_opener_read_plus(transaction_filename);
+    print_data_transact_fields();
     while (scanf("%d %lf", &transfer.number, &transfer.cash_payments) != -1) {
         fprintf(transaction_ptr, "%-3d%-6.2f\n",
                 transfer.number,
                 transfer.cash_payments);
-        printf("%s\n%s\n",
-               "1 Number account:",
-               "2 Client cash payments: ");
+        print_data_transact_fields();
     }
+    fclose(transaction_ptr);
 }

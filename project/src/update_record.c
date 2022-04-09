@@ -1,8 +1,12 @@
-
+#include "file_openers.h"
 #include "utils.h"
 
-void updateRec(FILE *record_ptr, FILE *transact_ptr, FILE *transact_record_ptr) {
+void updateRec(const char *record_filename, const char *transaction_filename,
+const char *transact_record_filename) {
     Data client_data, transfer;
+    FILE *record_ptr = file_opener_read(record_filename);
+    FILE *transact_ptr = file_opener_read(transaction_filename);
+    FILE *transact_record_ptr = file_opener_add(transact_record_filename);
     while (fscanf(record_ptr, "%d%20s%20s%30s%15s%lf%lf%lf",
                   &client_data.number,
                   client_data.name,
@@ -28,4 +32,7 @@ void updateRec(FILE *record_ptr, FILE *transact_ptr, FILE *transact_record_ptr) 
                 client_data.cash_payments);
         rewind(transact_ptr);
     }
+    fclose(record_ptr);
+    fclose(transact_ptr);
+    fclose(transact_record_ptr);
 }

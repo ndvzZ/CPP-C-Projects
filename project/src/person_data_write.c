@@ -1,16 +1,11 @@
 #include "utils.h"
+#include "file_openers.h"
+#include "print.h"
 
-void masterWrite(FILE *new_record_ptr) {
+void personDataWrite(const char *new_record) {
     Data Client;
-    printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n\n",
-           "1 Number account: ",
-           "2 Client name: ",
-           "3 Surname: ",
-           "4 Addres client: ",
-           "5 Client Telnum: ",
-           "6 Client indebtedness: ",
-           "7 Client credit limit: ",
-           "8 Client cash payments: ");
+    FILE *new_record_ptr = file_opener_read_plus(new_record);
+    print_data_fields();
     while (
         scanf("%d%20s%20s%30s%15s%lf%lf%lf",
               &Client.number,
@@ -30,14 +25,7 @@ void masterWrite(FILE *new_record_ptr) {
                 Client.indebtedness,
                 Client.credit_limit,
                 Client.cash_payments);
-        printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n\n",
-               "1 Number account: ",
-               "2 Client name: ",
-               "3 Surname: ",
-               "4 Addres client: ",
-               "5 Client Telnum: ",
-               "6 Client indebtedness: ",
-               "7 Client credit limit: ",
-               "9 Client cash payments:");
+        print_data_fields();
     }
+    fclose(new_record_ptr);
 }
