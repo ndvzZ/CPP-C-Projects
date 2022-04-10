@@ -3,8 +3,10 @@
 #include "matrix.h"
 
 int get_rows(const Matrix* matrix, size_t* rows) {
-    return matrix->num_rows;
+    *rows = matrix->num_rows;
+    return *rows;
 }
 int get_cols(const Matrix* matrix, size_t* cols) {
-    return matrix->num_cols;
+    *cols = matrix->num_cols;
+    return *cols;
 }
