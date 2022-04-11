@@ -5,7 +5,6 @@
 
 Matrix* mul(const Matrix* left, const Matrix* right) {
     Matrix *result = malloc(sizeof(Matrix));
-    double res,res1;
     if (!(check_for_exist(left) || check_for_exist(right))) {
         puts("can`t multiply non-existing matrix");
         free(result);
@@ -13,6 +12,7 @@ Matrix* mul(const Matrix* left, const Matrix* right) {
     }
     if (left->num_rows == right->num_cols) {
         size_t k = 0;
+        double res;
         for (size_t i = 0; i < left->num_rows; i++) { 
             while (k < right->num_cols) {
                 res = 0;
@@ -27,6 +27,7 @@ Matrix* mul(const Matrix* left, const Matrix* right) {
     }
     if (left->num_cols == right->num_rows) {
         size_t k1 = 0;
+        double res1;
         for (size_t j = 0; left->num_cols; j++) {
             while (k1 < right->num_rows) {
                 res1 = 0;
@@ -39,5 +40,6 @@ Matrix* mul(const Matrix* left, const Matrix* right) {
         }
         return result;
     }
+    free(result);
     return NULL;
 }

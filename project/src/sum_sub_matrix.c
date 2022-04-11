@@ -13,15 +13,16 @@ Matrix* sum(const Matrix* left, const Matrix* right) {
     if ((left->num_cols == right->num_cols) && (left->num_rows == right->num_rows)) {
         for (size_t i = 0; left->num_rows; i++) {
             for (size_t j = 0; right->num_cols; j++) {
-                double *sum = malloc(sizeof(double));
-                *sum = left->value[i][j] + right->value[i][j];
-                set_elem(result, i, j, *sum);
-                free(sum);
+                double *summ = malloc(sizeof(double));
+                *summ = left->value[i][j] + right->value[i][j];
+                set_elem(result, i, j, *summ);
+                free(summ);
             }
         }
     return result;
     } else {
         puts("error");
+        free(result);
         return NULL;
     }
 }
@@ -36,15 +37,16 @@ Matrix* sub(const Matrix* left, const Matrix* right){
     if ((left->num_cols == right->num_cols) && (left->num_rows == right->num_rows)) {
         for (size_t i = 0; left->num_rows; i++) {
             for (size_t j = 0; right->num_cols; j++) {
-                double *sub = malloc(sizeof(double));
-                *sub = left->value[i][j] - right->value[i][j];
-                set_elem(result, i, j, *sub);
-                free(sub);
+                double *subb = malloc(sizeof(double));
+                *subb = left->value[i][j] - right->value[i][j];
+                set_elem(result, i, j, *subb);
+                free(subb);
             }
         }
     return result;
     } else {
         puts("error");
+        free(result);
         return NULL;
     }
 }
