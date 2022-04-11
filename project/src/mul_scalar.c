@@ -1,17 +1,17 @@
 
 #include <stdio.h>
 #include "matrix.h"
+#include "if_exist_matr.h"
 
 Matrix* mul_scalar(const Matrix* matrix, double val) {
-    size_t *rows, *cols;
-    double *elem;
-    if (!check_for_exist(matrix))
-        puts("can`t scalar multiply non-existing matrix");
-    for (int i=0; i < get_rows(matrix, rows); i++) {
-        for (int j=0; j < get_cols(matrix, cols); j++) {
-            *elem = get_elem(matrix, i, j, elem);
-            *elem =*elem*val;
+    if (!check_for_exist(matrix)) { 
+        Matrix* mul_matrix = create_matrix(matrix -> num_rows, matrix -> num_cols);
+        for (size_t i = 0; i < matrix -> num_rows; i++) {
+            for (size_t j = 0; j < matrix -> num_cols; j++) {
+                mul_matrix -> value[i][j] = val * (matrix -> value[i][j]);
+            }
         }
-    }
-    return matrix;
+    return mul_matrix;
+    }   
+    return NULL;
 }

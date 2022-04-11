@@ -5,8 +5,8 @@
 
 
 typedef struct Matrix {
-    int num_rows;
-    int num_cols;
+    size_t num_rows;
+    size_t num_cols;
     double** value;
 } Matrix;
 
