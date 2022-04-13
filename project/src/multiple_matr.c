@@ -1,45 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "matrix.h"
-#include "if_exist_matr.h"
 
-Matrix* mul(const Matrix* left, const Matrix* right) {
-    Matrix *result = malloc(sizeof(Matrix));
-    if (!(check_for_exist(left) || check_for_exist(right))) {
-        puts("can`t multiply non-existing matrix");
-        free(result);
+
+    Matrix* mul(const Matrix* left, const Matrix* right) {
+    if (check_for_exist(left) || check_for_exist(right)) {
+        fprintf(stderr, INPUT_ERR);
         return NULL;
     }
-    if (left->num_rows == right->num_cols) {
-        size_t k = 0;
-        double res;
-        for (size_t i = 0; i < left->num_rows; i++) { 
-            while (k < right->num_cols) {
-                res = 0;
-                for (size_t j = 0; j < left->num_cols; j++) {
-                    res = res + left->value[i][j] * right->value[j][i+k];
-                }
-                set_elem(result, i, k, res);
-                k++;
-            }
-        }
-        return result;
+    if (left -> num_cols != right -> num_rows) {
+        fprintf(stderr, MULTIPLY_ERR);
+        return NULL;
     }
-    if (left->num_cols == right->num_rows) {
-        size_t k1 = 0;
-        double res1;
-        for (size_t j = 0; left->num_cols; j++) {
-            while (k1 < right->num_rows) {
-                res1 = 0;
-                for (size_t i = 0; left->num_rows; i++) {
-                    res1 = res1 + left->value[i][j] * right->value[i][j+k1];
-                }
-            set_elem(result, j, k1, res1);
-            k1++;
+    Matrix * multiply = create_matrix(left -> num_rows, right -> num_cols);
+    size_t mid = left -> num_cols;
+    size_t n = multiply -> num_rows;
+    size_t m = multiply -> num_cols;
+    for (size_t i = 0; i < n; i++) {
+        for (size_t j = 0; j < m; j++) {
+            double buf = 0;
+            for (size_t k = 0; k < mid; k++) {
+                buf += left -> value[i * left -> num_cols + k] * right -> value[k * right -> num_cols + j];
             }
+        multiply -> value[i * multiply -> num_cols + j]= buf;
         }
-        return result;
     }
-    free(result);
-    return NULL;
+    return multiply;
 }

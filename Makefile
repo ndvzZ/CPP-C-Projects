@@ -18,6 +18,9 @@ SRCS = \
 	    project/src/mul_scalar.c \
 	    project/src/transp.c \
 	    project/src/sum_sub_matrix.c \
+		project/src/determinant.c \
+		project/src/adject_matr.c \
+		project/src/obr_matr.c \
 	    project/src/multiple_matr.c
 
 # Test
@@ -36,6 +39,9 @@ TST_SRCS = \
 	    project/src/transp.c \
 	    project/src/sum_sub_matrix.c \
 	    project/src/multiple_matr.c \
+		project/src/determinant.c \
+		project/src/adject_matr.c \
+		project/src/obr_matr.c \
 		project/tests/src/*.c
 
 .PHONY: all check build test memtest testextra memtestextra rebuild clean
