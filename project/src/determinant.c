@@ -5,8 +5,10 @@
 int det(const Matrix* matrix, double* val) {
     if (check_for_exist(matrix) || !val)
         return -1;
-    if (matrix->num_rows != matrix->num_cols)
+    if (matrix->num_rows != matrix->num_cols) {
+        puts("uncountable det");
         return -1;
+    }
     size_t n = matrix->num_rows;
     if (n < 1) {
         puts("uncountable det");
@@ -32,18 +34,23 @@ Matrix* delete_i_j(const Matrix* matrix, size_t row, size_t col) {
     if (check_for_exist(matrix))
         return NULL;
     Matrix* new_matrix = create_matrix(matrix -> num_rows - 1, matrix -> num_cols - 1);
-    if (new_matrix -> value && matrix -> value) {
-        size_t k = 0;
+        size_t i1 = 0;
+        size_t j1 = 0;
+        double *buf = malloc(sizeof(double));
         for (size_t i = 0; i <  matrix -> num_rows; i++) {
             if (i != row) {
                 for (size_t j = 0; j < matrix -> num_cols; j++) {
                     if (j != col) {
-                        *(new_matrix -> value + k) = matrix -> value[i * matrix -> num_rows + j];
-                        k = k + 1;
+                        while (j1 < matrix -> num_cols - 1) {
+                        get_elem(matrix, i, j, buf);
+                        set_elem(new_matrix, i1, j1, *buf);
+                        j1++;
+                        }
                     }
                 }
+                i1++;
             }
         }
-    }
+        free(buf);
     return new_matrix;
 }
