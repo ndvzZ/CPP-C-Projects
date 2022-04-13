@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "matrix.h"
 
-
 int det(const Matrix* matrix, double* val) {
     if (check_for_exist(matrix) || !val)
         return -1;
