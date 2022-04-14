@@ -12,6 +12,8 @@
         return NULL;
     }
     double value = 1/determinant;
-    Matrix *invert_matr = mul_scalar(adj(matrix), value);
+    Matrix *adjected = adj(matrix);
+    Matrix *invert_matr = mul_scalar(adjected, value);
+    free_matrix(adjected);
     return invert_matr;
 }
