@@ -3,54 +3,54 @@
 #include "matrix.h"
 
 int det(const Matrix* matrix, double* val) {
-    if (check_for_exist(matrix) || !val)
-        return -1;
-    if (matrix->num_rows != matrix->num_cols) {
-        puts("uncountable det");
-        return -1;
+    if (check_for_exist(matrix)) {
+        fprintf(stderr, INPUT_ERR);
+        return 1;
     }
-    size_t n = matrix->num_rows;
-    if (n < 1) {
-        puts("uncountable det");
-        return -1;
+    if ((matrix -> num_cols != matrix -> num_rows) || (matrix -> num_cols == 0)) {
+        fprintf(stderr, "matrix isn`t square");
+        return 1;
     }
-    int determinant = 0;
-    if (n == 2) {
-        determinant = matrix->value[0] * matrix->value[4] - matrix->value[3] * matrix->value[2];
-        return determinant;
-    }
-    if (n > 2) {
-        int k = 1;
-        for (size_t i = 0; i < matrix -> num_rows; i++) {
-            delete_i_j(matrix, i, 0);
-            determinant = determinant + k * matrix->value[i*matrix->num_rows] * det(matrix, matrix->value);
+    size_t n = matrix -> num_rows;
+    if (n == 1) {
+        *val = *(matrix -> value);
+    } else if (n == 2) {
+        *val = matrix -> value[0] * matrix -> value[3] - matrix -> value[2]*matrix -> value[1];
+    } else {
+        int minor_sign = 1;
+        double determinant = 0;
+        double minor_det;
+        for (size_t i = 0; i < n; i++) {
+            Matrix* minor = delete_i_j(matrix, 0, i);
+            if ((minor != NULL) && !(det(minor, &minor_det))) {
+                determinant += minor_sign * minor_det * matrix -> value[i];
+                minor_sign *= -1;
+            }
+            free_matrix(minor);
         }
-        return determinant;
+        *val = determinant;
     }
-    return -1;
+    return 0;
 }
 
 Matrix* delete_i_j(const Matrix* matrix, size_t row, size_t col) {
-    if (check_for_exist(matrix))
+    if (!matrix) {
         return NULL;
-    Matrix* new_matrix = create_matrix(matrix -> num_rows - 1, matrix -> num_cols - 1);
-        size_t i1 = 0;
-        size_t j1 = 0;
-        double *buf = malloc(sizeof(double));
-        for (size_t i = 0; i <  matrix -> num_rows; i++) {
+    }
+    Matrix* minor = create_matrix(matrix -> num_rows - 1, matrix -> num_cols - 1);
+    if (minor -> value && matrix -> value) {
+        size_t n = matrix -> num_rows;
+        int pointer = 0;
+        for (size_t i = 0; i < n; i++) {
             if (i != row) {
-                for (size_t j = 0; j < matrix -> num_cols; j++) {
+                for (size_t j = 0; j < n; j++) {
                     if (j != col) {
-                        while (j1 < matrix -> num_cols - 1) {
-                        get_elem(matrix, i, j, buf);
-                        set_elem(new_matrix, i1, j1, *buf);
-                        j1++;
-                        }
+                        *(minor -> value + pointer) = matrix -> value[i * n + j];
+                        pointer++;
                     }
                 }
-                i1++;
             }
         }
-        free(buf);
-    return new_matrix;
+    }
+    return minor;
 }

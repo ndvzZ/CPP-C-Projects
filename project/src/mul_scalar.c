@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include "matrix.h"
 
-
 Matrix* mul_scalar(const Matrix* matrix, double val) {
     if (check_for_exist(matrix)) {
         return NULL;
@@ -14,6 +13,6 @@ Matrix* mul_scalar(const Matrix* matrix, double val) {
                 mul_matrix -> value[i*M+j] = val * (matrix -> value[i*M+j]);
             }
         }
-    return mul_matrix;
+        return mul_matrix;
         }
 }
