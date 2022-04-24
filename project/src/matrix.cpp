@@ -4,6 +4,8 @@
 #include <fstream>
 #include <math.h>
 
+bool is_equal(double a_compare, double b_compare);
+
 namespace prep {
 
     // Конструкторы
