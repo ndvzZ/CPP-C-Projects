@@ -4,37 +4,38 @@
 #include <fstream>
 #include <math.h>
 
-bool is_equal(double a_compare, double b_compare);
+bool is_equal(double a_compare, double b_compare) {
+        double epsilon = 1e-07;
+        if (fabs(a_compare - b_compare) <= epsilon)
+            return true;
+        return false;
+    }
 
 namespace prep {
 
     // Конструкторы
 
     Matrix::Matrix(size_t num_rows, size_t num_cols) {
-    if (num_rows > 0 && num_cols > 0) {
-        rows = num_rows;
-        cols = num_cols;
-        value.reserve(rows * cols);
-        /*for (size_t i = 0; i < rows; i++) {
-            for (size_t j = 0; j < cols; j++) {
-                value[i * cols + j] = 0;
-            } 
-        } */
-    }
-    rows = 0;
-    cols = 0;
-    value.reserve(1);
-    }
-
-    /* explicit Matrix::Matrix(std::istream& is) {
-        ifstream file;
-        if (!file) {
-            std::cout << "error to open file";
+        if (num_rows > 0 && num_cols > 0) {
+            rows = num_rows;
+            cols = num_cols;
+            value.reserve(rows * cols);
         }
-            while(!EOF(file)) {
+        rows = 0;
+        cols = 0;
+        value.reserve(1);
+    }
 
+    Matrix::Matrix(std::istream& is) {    
+        is >> rows;
+        is >> cols;
+        value.reserve(rows * cols);
+        for (size_t i = 0; i < rows; i++) {
+            for (size_t j = 0; j < cols; j++) {
+                is >> value[i*cols+j];
             }
-        } */
+        }
+    }
 
     // Базовые методы
 
@@ -89,13 +90,6 @@ namespace prep {
             return buf;
         }
         return true;
-    }
-
-    bool is_equal(double a_compare, double b_compare) {
-        double epsilon = 1e-07;
-        if (fabs(a_compare - b_compare) <= epsilon)
-            return true;
-        return false;
     }
 
     // Вывод матрицы в поток
