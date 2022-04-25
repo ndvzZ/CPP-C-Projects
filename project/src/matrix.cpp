@@ -3,6 +3,11 @@
 #include <iostream>
 #include <fstream>
 #include <math.h>
+#include <limits>
+#include <cmath>
+#include <iomanip>
+#include <string>
+#include <sstream>
 
 bool is_equal(double a_compare, double b_compare) {
         double epsilon = 1e-07;
@@ -13,6 +18,12 @@ bool is_equal(double a_compare, double b_compare) {
 
 namespace prep {
 
+    // Деструктор
+
+   /* Matrix::~Matrix() {
+        value.clear();
+}*/
+
     // Конструкторы
 
     Matrix::Matrix(size_t num_rows, size_t num_cols) {
@@ -20,22 +31,51 @@ namespace prep {
             rows = num_rows;
             cols = num_cols;
             value.reserve(rows * cols);
-        }
-        rows = 0;
-        cols = 0;
-        value.reserve(1);
-    }
-
-    Matrix::Matrix(std::istream& is) {    
-        is >> rows;
-        is >> cols;
-        value.reserve(rows * cols);
-        for (size_t i = 0; i < rows; i++) {
-            for (size_t j = 0; j < cols; j++) {
-                is >> value[i*cols+j];
+            for (size_t i = 0; i < rows * cols; i++) {
+                value[i] = 0;
             }
         }
     }
+
+    // Создание матрицы из файла
+
+    Matrix::Matrix(std::istream& is) {
+        is >> rows;
+        is >> cols;
+        if (rows == 0 || cols == 0 || is.fail()) {
+            value.clear();
+            throw InvalidMatrixStream();
+        }
+        value.reserve(rows * cols);
+        for (size_t i = 0; i < rows * cols; i++) {
+            is >> value[i];
+            if (is.fail()) {
+                value.clear();
+                throw InvalidMatrixStream();
+            }
+        }
+    }
+
+
+    Matrix::Matrix(const Matrix& rhs) {
+        rows = rhs.rows;
+        cols = rhs.cols;
+        value.reserve(cols * rows);
+        for (size_t i = 0; i < rows * cols; i++) {
+        value[i] = rhs.value[i];
+        }
+    }
+
+    Matrix& Matrix::operator=(const Matrix& rhs) {
+        rows = rhs.rows;
+        cols = rhs.cols;
+        value.reserve(cols * rows);
+        for (size_t i = 0; i < rows * cols; i++) {
+        value[i] = rhs.value[i];
+        }
+        return *this;
+    }
+
 
     // Базовые методы
 
@@ -47,19 +87,18 @@ namespace prep {
     }
 
     double Matrix::operator()(size_t i, size_t j) const {
-        if (i > rows || j > cols) {
-        //  OutOfRange(i, j, *this);
+        if (i >= rows || j >= cols) {
+            throw OutOfRange(i, j, *this);
             return value[0];
         }
         return value[cols * i + j];
     }
 
     double& Matrix::operator()(size_t i, size_t j) {
-        if (i > rows || j > cols) {
-        //   OutOfRange(i, j, *this);
+        if (i >= rows || j >= cols) {
+            throw OutOfRange(i, j, *this);
         }
-        double &val = value[cols * i + j];
-        return val;
+        return value[cols * i + j];
     }
 
     // Операторы сравнения
@@ -79,34 +118,24 @@ namespace prep {
     }
 
     bool Matrix::operator!=(const Matrix& rhs) const {
-        if ((rows == rhs.rows) && (cols == rhs.cols)) {
-            bool buf = false;
-            for (size_t i = 0; i < rhs.rows; i++) {
-                for (size_t j = 0; j < rhs.cols; j++) {
-                    if (!is_equal(value[i * cols + j], rhs.value[i * cols + j]))
-                        buf = true;
-                }
-            }
-            return buf;
-        }
-        return true;
+        return !(*this == rhs);
     }
 
     // Вывод матрицы в поток
 
     std::ostream& operator<<(std::ostream& os, const Matrix& matrix) {
-        for (size_t i = 0; i < matrix.rows; i++) {
-                for (size_t j = 0; j < matrix.cols; j++) {
-                    if (j == 0) {
-                        os << matrix.value[i * matrix.cols];
-                    }
-                    if (j == matrix.cols) {
-                        os << " " << matrix.value[i * matrix.cols + j] << std::endl;
-                    }
-                    os  << " " << matrix.value[i * matrix.cols + j];
-                }
+    os << matrix.rows << ' ' << matrix.cols << std::endl;
+    for (size_t i = 0; i < matrix.rows; i++) {
+        for (size_t j = 0; j < matrix.cols; j++) {
+            os << std::fixed << std::setprecision(std::numeric_limits<float>::max_digits10)
+               << matrix.value[i*matrix.cols+j];
+            if (j != matrix.cols - 1) {
+                os << ' ';
+            }
         }
-        return os;
+        os << std::endl;
+    }
+    return os;
     }
 
     // Арифметические операторы
@@ -114,9 +143,10 @@ namespace prep {
     Matrix Matrix::operator+(const Matrix& rhs) const {
         size_t num_rows = rhs.getRows();
         size_t num_cols = rhs.getCols();
+        if (num_rows == 0 || num_cols == 0)
+            throw DimensionMismatch(*this, rhs);
         if (!((rows == num_rows) && (cols == num_cols))) {
-        //    DimensionMismatch(*this, rhs);
-            return *this;
+            throw DimensionMismatch(*this, rhs);
         }
         Matrix Result(num_rows, num_cols);
         for (size_t i = 0; i < num_rows; i++) {
@@ -130,9 +160,10 @@ namespace prep {
     Matrix Matrix::operator-(const Matrix& rhs) const {
         size_t num_rows = rhs.getRows();
         size_t num_cols = rhs.getCols();
+        if (num_rows == 0 || num_cols == 0)
+            throw DimensionMismatch(*this, rhs);
         if (!((rows == num_rows) && (cols == num_cols))) {
-        //    DimensionMismatch(*this, rhs);
-            return *this;
+            throw DimensionMismatch(*this, rhs);
         }
         Matrix Result(num_rows, num_cols);
         for (size_t i = 0; i < num_rows; i++) {
@@ -144,25 +175,26 @@ namespace prep {
     }
 
     Matrix Matrix::operator*(const Matrix& rhs) const {
-    if ((rows == rhs.cols) || (cols == rhs.rows)) {
-    Matrix multiply(rows, rhs.cols);
-    size_t mid = cols;
-    size_t n = multiply.rows;
-    size_t m = multiply.cols;
-    for (size_t i = 0; i < n; i++) {
-        for (size_t j = 0; j < m; j++) {
-            double buf = 0;
-            for (size_t k = 0; k < mid; k++) {
-                buf += value[i * cols + k] * rhs.value[k * rhs.cols + j];
+        if (rhs.rows == 0 || rhs.cols == 0)
+            throw DimensionMismatch(*this, rhs);
+        if ((rows == rhs.cols) || (cols == rhs.rows)) {
+        Matrix multiply(rows, rhs.cols);
+        size_t mid = cols;
+        size_t n = multiply.rows;
+        size_t m = multiply.cols;
+        for (size_t i = 0; i < n; i++) {
+            for (size_t j = 0; j < m; j++) {
+                double buf = 0;
+                for (size_t k = 0; k < mid; k++) {
+                    buf += value[i * cols + k] * rhs.value[k * rhs.cols + j];
+                }
+            multiply.value[i * multiply.cols + j] = buf;
             }
-        multiply.value[i * multiply.cols + j] = buf;
         }
+        return multiply;
+        }
+        throw DimensionMismatch(*this, rhs);
     }
-    return multiply;
-    }
-    printf("Imposibble to multiply matrixes");
-    return *this;
-}
 
     Matrix Matrix::operator*(double val) const {
         Matrix mul_matrix(rows, cols);
@@ -185,10 +217,10 @@ namespace prep {
     }
 
     Matrix Matrix::transp() const {
-        Matrix Result(rows, cols);
+        Matrix Result(cols, rows);
         for (size_t i = 0; i < rows; i++) {
             for (size_t j = 0; j < cols; j++) {
-                Result.value[i * cols + j] = value[j * cols + i];
+                Result.value[j * rows + i] = value[i * cols + j];
             }
         }
         return Result;
@@ -199,33 +231,30 @@ namespace prep {
     // Дополнительные математические операции
 
     double Matrix::det() const {
-    if (cols != rows) {
-       // DimensionMismatch(*this);
-       return -1;
-    }
-    size_t n = rows;
-    if (n == 1) {
-        return value[0];
-    } else if (n == 2) {
-        return value[0] * value[3] - value[2] * value[1];
-    } else {
-        int minor_sign = 1;
+        if (cols != rows) {
+            throw DimensionMismatch(*this);
+        }
+        size_t n = rows;
+        if (n == 1) {
+            return value[0];
+        }
+        if (n == 2) {
+            return value[0] * value[3] - value[2] * value[1];
+            }
+        size_t minor_sign = 1;
         double determinant = 0;
-        Matrix minor = *this;
         for (size_t i = 0; i < n; i++) {
-            minor.delete_i_j(0, i);
-                determinant += minor_sign * minor.det() * minor.value[i];
+                Matrix minor = this->delete_i_j(0, i);
+                determinant += minor_sign * minor.det() * this->value[i];
                 minor_sign *= -1;
             }
-            minor.~Matrix();
             return determinant;
         }
-    }
 
     Matrix Matrix::delete_i_j(size_t num_rows, size_t num_cols) const {
     Matrix minor(rows - 1, cols - 1);
         size_t n = rows;
-        int pointer = 0;
+        size_t pointer = 0;
         for (size_t i = 0; i < n; i++) {
             if (i != num_rows) {
                 for (size_t j = 0; j < n; j++) {
@@ -239,11 +268,59 @@ namespace prep {
         return minor;
     }
 
+ /*double Matrix::Minor(size_t x, size_t y) const {
+    Matrix minor_matrix(rows - 1, cols - 1);
+    size_t n = rows;
+    int pointer = 0;
+
+    for (size_t i = 0; i < n; i++) {
+        if (i != x) {
+            for (size_t j = 0; j < n; j++) {
+                if (j != y) {
+                    minor_matrix.value[pointer] = value[i * n + j];
+                    pointer++;
+                }
+            }
+        }
+    }
+    double minor_det = minor_matrix.det();
+    minor_matrix.~Matrix();
+    return minor_det;
+} */
+
+
+
+/*Matrix Matrix::adj() const {
+    if (cols != rows) {
+       puts("matrix isn`t square");
+    }
+
+    size_t size = rows;
+    Matrix adjoint(size, size);
+
+    if (size == 1) {
+        adjoint.value[0] = 1;
+        return adjoint;
+    }
+    for (size_t i = 0; i < size; i++) {
+        for (size_t j = 0; j < size; j++) {
+            adjoint.value[i * cols + j] = this->AlgCompl(j, i);
+        }
+    }
+    return adjoint;
+} 
+
+double Matrix::AlgCompl(size_t x, size_t y) const {
+    if (rows == cols && x <= rows && y <= cols) {
+        return (((x+y) % 2 == 0) ? 1: -1) * this->Minor(x, y);
+    }
+    return 0;
+} */
+
     Matrix Matrix::adj() const {
     size_t n = rows;
     if (n < 1) {
-        puts("uncountable det");
-        return *this;
+        throw DimensionMismatch(*this);
     }
     Matrix adject(n, n);
     if (n == 1) {
@@ -262,20 +339,18 @@ namespace prep {
             }
         }
     return adject;
-    }
+    } 
 
     Matrix Matrix::inv() const {
-    Matrix buf = *this;
-    double determinant = buf.det();
+    double determinant = this->det();
     if (determinant == 0) {
-        puts("error determinant");
-        return buf;
+        throw DimensionMismatch(*this);
     }
     double value = 1/determinant;
-    Matrix adjected = buf.adj();
+    Matrix adjected = this->adj();
     Matrix invert_matr = adjected * value;
     adjected.~Matrix();
     return invert_matr;
-    }
+    } 
 
 }   // namespace prep

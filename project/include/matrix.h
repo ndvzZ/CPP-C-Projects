@@ -14,8 +14,8 @@ class Matrix {
  public:
   explicit Matrix(size_t num_rows = 0, size_t num_cols = 0);
   explicit Matrix(std::istream& is);
-  Matrix(const Matrix& rhs) = default;
-  Matrix& operator=(const Matrix& rhs) = default;
+  Matrix(const Matrix& rhs);
+  Matrix& operator=(const Matrix& rhs);
   ~Matrix() = default;
 
   size_t getRows() const;
@@ -43,6 +43,8 @@ class Matrix {
   Matrix adj() const;
   Matrix inv() const;
   Matrix delete_i_j(size_t num_rows, size_t num_cols) const;
+  //double Minor(size_t x, size_t y) const;
+  //double AlgCompl(size_t x, size_t y) const;
 };
 
 Matrix operator*(double val, const Matrix& matrix);
