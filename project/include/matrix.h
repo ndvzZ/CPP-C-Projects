@@ -3,13 +3,19 @@
 #include <vector>
 #include <istream>
 
+bool is_equal(double a_compare, double b_compare);
+
 namespace prep {
 class Matrix {
+  size_t rows;
+  size_t cols;
+  std::vector<double>value;
+
  public:
-  explicit Matrix(size_t rows = 0, size_t cols = 0);
+  explicit Matrix(size_t num_rows = 0, size_t num_cols = 0);
   explicit Matrix(std::istream& is);
-  Matrix(const Matrix& rhs) = default;
-  Matrix& operator=(const Matrix& rhs) = default;
+  Matrix(const Matrix& rhs);
+  Matrix& operator=(const Matrix& rhs);
   ~Matrix() = default;
 
   size_t getRows() const;
@@ -36,6 +42,7 @@ class Matrix {
   double det() const;
   Matrix adj() const;
   Matrix inv() const;
+  Matrix delete_i_j(size_t num_rows, size_t num_cols) const;
 };
 
 Matrix operator*(double val, const Matrix& matrix);
