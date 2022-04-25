@@ -43,8 +43,6 @@ class Matrix {
   Matrix adj() const;
   Matrix inv() const;
   Matrix delete_i_j(size_t num_rows, size_t num_cols) const;
-  //double Minor(size_t x, size_t y) const;
-  //double AlgCompl(size_t x, size_t y) const;
 };
 
 Matrix operator*(double val, const Matrix& matrix);

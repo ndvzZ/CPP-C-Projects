@@ -18,12 +18,6 @@ bool is_equal(double a_compare, double b_compare) {
 
 namespace prep {
 
-    // Деструктор
-
-   /* Matrix::~Matrix() {
-        value.clear();
-}*/
-
     // Конструкторы
 
     Matrix::Matrix(size_t num_rows, size_t num_cols) {
@@ -177,7 +171,9 @@ namespace prep {
     Matrix Matrix::operator*(const Matrix& rhs) const {
         if (rhs.rows == 0 || rhs.cols == 0)
             throw DimensionMismatch(*this, rhs);
-        if ((rows == rhs.cols) || (cols == rhs.rows)) {
+        if (cols != rhs.rows) {
+            throw DimensionMismatch(*this, rhs);
+        }
         Matrix multiply(rows, rhs.cols);
         size_t mid = cols;
         size_t n = multiply.rows;
@@ -192,8 +188,6 @@ namespace prep {
             }
         }
         return multiply;
-        }
-        throw DimensionMismatch(*this, rhs);
     }
 
     Matrix Matrix::operator*(double val) const {
@@ -227,7 +221,6 @@ namespace prep {
     }
 
 
-
     // Дополнительные математические операции
 
     double Matrix::det() const {
@@ -241,12 +234,10 @@ namespace prep {
         if (n == 2) {
             return value[0] * value[3] - value[2] * value[1];
             }
-        size_t minor_sign = 1;
         double determinant = 0;
         for (size_t i = 0; i < n; i++) {
                 Matrix minor = this->delete_i_j(0, i);
-                determinant += minor_sign * minor.det() * this->value[i];
-                minor_sign *= -1;
+                determinant += pow(-1, i + 2) * minor.det() * this->value[i];
             }
             return determinant;
         }
@@ -268,89 +259,42 @@ namespace prep {
         return minor;
     }
 
- /*double Matrix::Minor(size_t x, size_t y) const {
-    Matrix minor_matrix(rows - 1, cols - 1);
-    size_t n = rows;
-    int pointer = 0;
-
-    for (size_t i = 0; i < n; i++) {
-        if (i != x) {
-            for (size_t j = 0; j < n; j++) {
-                if (j != y) {
-                    minor_matrix.value[pointer] = value[i * n + j];
-                    pointer++;
+    Matrix Matrix::adj() const {
+        if (rows != cols) {
+            throw DimensionMismatch(*this);
+        }
+        size_t n = rows;
+        if (n < 1) {
+            throw DimensionMismatch(*this);
+        }
+        Matrix adject(n, n);
+        if (n == 1) {
+            adject.value[0] = 1;
+            return adject;
+        }
+        double minor_det;
+        Matrix transp = this->transp();
+            for (size_t i = 0; i < n; i++) {
+                for (size_t j = 0; j < n; j++) {
+                    Matrix minor = transp.delete_i_j(i, j);
+                    minor_det = minor.det();
+                    int minor_sign = ((i + j) % 2)? -1: 1;
+                    adject.value[i * n + j] = minor_sign * minor_det;
                 }
             }
-        }
-    }
-    double minor_det = minor_matrix.det();
-    minor_matrix.~Matrix();
-    return minor_det;
-} */
-
-
-
-/*Matrix Matrix::adj() const {
-    if (cols != rows) {
-       puts("matrix isn`t square");
-    }
-
-    size_t size = rows;
-    Matrix adjoint(size, size);
-
-    if (size == 1) {
-        adjoint.value[0] = 1;
-        return adjoint;
-    }
-    for (size_t i = 0; i < size; i++) {
-        for (size_t j = 0; j < size; j++) {
-            adjoint.value[i * cols + j] = this->AlgCompl(j, i);
-        }
-    }
-    return adjoint;
-} 
-
-double Matrix::AlgCompl(size_t x, size_t y) const {
-    if (rows == cols && x <= rows && y <= cols) {
-        return (((x+y) % 2 == 0) ? 1: -1) * this->Minor(x, y);
-    }
-    return 0;
-} */
-
-    Matrix Matrix::adj() const {
-    size_t n = rows;
-    if (n < 1) {
-        throw DimensionMismatch(*this);
-    }
-    Matrix adject(n, n);
-    if (n == 1) {
-        adject.value[0] = 1;
         return adject;
     }
-    double minor_det;
-        for (size_t i = 0; i < n; i++) {
-            for (size_t j = 0; j < n; j++) {
-                Matrix minor = *this;
-                minor.delete_i_j(j, i);
-                minor_det = minor.det();
-                int minor_sign = ((i + j) % 2)? -1: 1;
-                adject.value[i * n + j] = minor_sign * minor_det;
-                minor.~Matrix();
-            }
-        }
-    return adject;
-    } 
 
     Matrix Matrix::inv() const {
-    double determinant = this->det();
-    if (determinant == 0) {
-        throw DimensionMismatch(*this);
+        double determinant = this->det();
+        if (determinant == 0) {
+            throw SingularMatrix();
+        }
+        double value = 1/determinant;
+        Matrix adjected = this->adj();
+        Matrix invert_matr = adjected * value;
+        adjected.value.clear();
+        return invert_matr;
     }
-    double value = 1/determinant;
-    Matrix adjected = this->adj();
-    Matrix invert_matr = adjected * value;
-    adjected.~Matrix();
-    return invert_matr;
-    } 
 
 }   // namespace prep
