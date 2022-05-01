@@ -1,0 +1,47 @@
+[
+{
+  "directory": "/home/user/Документы/TechDir/MyHomework/Homework-1/build/project",
+  "command": "/usr/bin/g++-8  -I/home/user/Документы/TechDir/MyHomework/Homework-1/project/include  -Wall -Wextra -Werror -g -std=gnu++17 -o CMakeFiles/prepmatrix.dir/src/matrix.cpp.o -c /home/user/Документы/TechDir/MyHomework/Homework-1/project/src/matrix.cpp",
+  "file": "/home/user/Документы/TechDir/MyHomework/Homework-1/project/src/matrix.cpp"
+},
+{
+  "directory": "/home/user/Документы/TechDir/MyHomework/Homework-1/build/project/tests",
+  "command": "/usr/bin/g++-8  -I/home/user/Документы/TechDir/MyHomework/Homework-1/project/include -I/home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/include  -Wall -Wextra -Werror -g -std=gnu++17 -o CMakeFiles/tests.dir/src/main.cpp.o -c /home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/src/main.cpp",
+  "file": "/home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/src/main.cpp"
+},
+{
+  "directory": "/home/user/Документы/TechDir/MyHomework/Homework-1/build/project/tests",
+  "command": "/usr/bin/g++-8  -I/home/user/Документы/TechDir/MyHomework/Homework-1/project/include -I/home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/include  -Wall -Wextra -Werror -g -std=gnu++17 -o CMakeFiles/tests.dir/src/utils.cpp.o -c /home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/src/utils.cpp",
+  "file": "/home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/src/utils.cpp"
+},
+{
+  "directory": "/home/user/Документы/TechDir/MyHomework/Homework-1/build/project/tests",
+  "command": "/usr/bin/g++-8  -I/home/user/Документы/TechDir/MyHomework/Homework-1/project/include -I/home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/include  -Wall -Wextra -Werror -g -std=gnu++17 -o CMakeFiles/tests.dir/src/tests_base.cpp.o -c /home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/src/tests_base.cpp",
+  "file": "/home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/src/tests_base.cpp"
+},
+{
+  "directory": "/home/user/Документы/TechDir/MyHomework/Homework-1/build/project/tests",
+  "command": "/usr/bin/g++-8  -I/home/user/Документы/TechDir/MyHomework/Homework-1/project/include -I/home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/include  -Wall -Wextra -Werror -g -std=gnu++17 -o CMakeFiles/tests.dir/src/tests_base_neg.cpp.o -c /home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/src/tests_base_neg.cpp",
+  "file": "/home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/src/tests_base_neg.cpp"
+},
+{
+  "directory": "/home/user/Документы/TechDir/MyHomework/Homework-1/build/project/tests",
+  "command": "/usr/bin/g++-8  -I/home/user/Документы/TechDir/MyHomework/Homework-1/project/include -I/home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/include  -Wall -Wextra -Werror -g -std=gnu++17 -o CMakeFiles/tests.dir/src/tests_math_base.cpp.o -c /home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/src/tests_math_base.cpp",
+  "file": "/home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/src/tests_math_base.cpp"
+},
+{
+  "directory": "/home/user/Документы/TechDir/MyHomework/Homework-1/build/project/tests",
+  "command": "/usr/bin/g++-8  -I/home/user/Документы/TechDir/MyHomework/Homework-1/project/include -I/home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/include  -Wall -Wextra -Werror -g -std=gnu++17 -o CMakeFiles/tests.dir/src/tests_math_base_neg.cpp.o -c /home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/src/tests_math_base_neg.cpp",
+  "file": "/home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/src/tests_math_base_neg.cpp"
+},
+{
+  "directory": "/home/user/Документы/TechDir/MyHomework/Homework-1/build/project/tests",
+  "command": "/usr/bin/g++-8  -I/home/user/Документы/TechDir/MyHomework/Homework-1/project/include -I/home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/include  -Wall -Wextra -Werror -g -std=gnu++17 -o CMakeFiles/tests.dir/src/tests_math_extra.cpp.o -c /home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/src/tests_math_extra.cpp",
+  "file": "/home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/src/tests_math_extra.cpp"
+},
+{
+  "directory": "/home/user/Документы/TechDir/MyHomework/Homework-1/build/project/tests",
+  "command": "/usr/bin/g++-8  -I/home/user/Документы/TechDir/MyHomework/Homework-1/project/include -I/home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/include  -Wall -Wextra -Werror -g -std=gnu++17 -o CMakeFiles/tests.dir/src/tests_math_extra_neg.cpp.o -c /home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/src/tests_math_extra_neg.cpp",
+  "file": "/home/user/Документы/TechDir/MyHomework/Homework-1/project/tests/src/tests_math_extra_neg.cpp"
+}
+]

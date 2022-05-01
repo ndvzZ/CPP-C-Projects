@@ -1,0 +1,11 @@
+/home/user/Документы/TechDir/MyHomework/Homework-1/build/CMakeFiles/test.dir
+/home/user/Документы/TechDir/MyHomework/Homework-1/build/CMakeFiles/edit_cache.dir
+/home/user/Документы/TechDir/MyHomework/Homework-1/build/CMakeFiles/rebuild_cache.dir
+/home/user/Документы/TechDir/MyHomework/Homework-1/build/project/CMakeFiles/prepmatrix.dir
+/home/user/Документы/TechDir/MyHomework/Homework-1/build/project/CMakeFiles/test.dir
+/home/user/Документы/TechDir/MyHomework/Homework-1/build/project/CMakeFiles/edit_cache.dir
+/home/user/Документы/TechDir/MyHomework/Homework-1/build/project/CMakeFiles/rebuild_cache.dir
+/home/user/Документы/TechDir/MyHomework/Homework-1/build/project/tests/CMakeFiles/tests.dir
+/home/user/Документы/TechDir/MyHomework/Homework-1/build/project/tests/CMakeFiles/test.dir
+/home/user/Документы/TechDir/MyHomework/Homework-1/build/project/tests/CMakeFiles/edit_cache.dir
+/home/user/Документы/TechDir/MyHomework/Homework-1/build/project/tests/CMakeFiles/rebuild_cache.dir
