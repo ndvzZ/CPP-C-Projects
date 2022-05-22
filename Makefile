@@ -8,8 +8,20 @@ HDRS = \
 	   project/include
 
 SRCS = \
-	   project/src/main.c \
-	   project/src/matrix.c
+		project/src/main.c \
+	    project/src/create_matrix_from_file.c \
+	    project/src/create_matrix.c \
+	    project/src/free_matrix.c \
+	    project/src/get_rows_cols.c \
+	    project/src/get_set_elem.c \
+	    project/src/if_exist_matr.c \
+	    project/src/mul_scalar.c \
+	    project/src/transp.c \
+	    project/src/sum_sub_matrix.c \
+		project/src/determinant.c \
+		project/src/adject_matr.c \
+		project/src/obr_matr.c \
+	    project/src/multiple_matr.c
 
 # Test
 TST_HDRS = \
@@ -17,8 +29,20 @@ TST_HDRS = \
 		   project/tests/include
 
 TST_SRCS = \
-           project/src/matrix.c \
-		   project/tests/src/*.c
+        project/src/create_matrix_from_file.c \
+	    project/src/create_matrix.c \
+	    project/src/free_matrix.c \
+	    project/src/get_rows_cols.c \
+	    project/src/get_set_elem.c \
+	    project/src/if_exist_matr.c \
+	    project/src/mul_scalar.c \
+	    project/src/transp.c \
+	    project/src/sum_sub_matrix.c \
+	    project/src/multiple_matr.c \
+		project/src/determinant.c \
+		project/src/adject_matr.c \
+		project/src/obr_matr.c \
+		project/tests/src/*.c
 
 .PHONY: all check build test memtest testextra memtestextra rebuild clean
 
