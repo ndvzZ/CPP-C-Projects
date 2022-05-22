@@ -16,26 +16,14 @@ Matrix* create_matrix_from_file(const char* path_file) {
         fprintf(stderr, ACCESS_ERR);
         return NULL;
     }
-    Matrix* matrix = malloc(sizeof(Matrix));
-    if (!matrix) {
-        fprintf(stderr, ALLOCATE_ERR);
-        fclose(matrix_file);
-        return NULL;
-    }
-    if (fscanf(matrix_file, "%zu%zu", &matrix -> num_rows, &matrix -> num_cols) != NUMBER_MATRIX_SIZE) {
+    size_t rows, cols;
+    if (fscanf(matrix_file, "%zu%zu", &rows, &cols) != NUMBER_MATRIX_SIZE) {
         fprintf(stderr, INPUT_SIZE_ERR);
-        free(matrix);
         fclose(matrix_file);
         return NULL;
     }
-    matrix -> value = malloc(matrix -> num_rows * matrix -> num_cols * sizeof(double));
-    if (!matrix -> value) {
-        fprintf(stderr, ALLOCATE_ERR);
-        free(matrix -> value);
-        free(matrix);
-        fclose(matrix_file);
-        return NULL;
-    }
+    Matrix* matrix = create_matrix(rows, cols);
+    if (!check_for_exist(matrix)) {
     for (size_t i = 0; i <  matrix -> num_rows; i++) {
         for (size_t j = 0; j < matrix -> num_cols; j++) {
             int buf = fscanf(matrix_file, "%lf", &(matrix -> value[i * matrix -> num_cols + j]));
@@ -50,4 +38,8 @@ Matrix* create_matrix_from_file(const char* path_file) {
     }
     fclose(matrix_file);
     return matrix;
+    }
+    fclose(matrix_file);
+    free_matrix(matrix);
+    return NULL;
 }

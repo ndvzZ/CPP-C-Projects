@@ -4,7 +4,7 @@
 
 
 int get_elem(const Matrix* matrix, size_t row, size_t col, double* val) {
-    if (check_for_exist(matrix)) {
+    if (check_for_exist(matrix) || (matrix->num_rows < row) || (matrix->num_cols < col)) {
         return -1;
     } else {
         *val = matrix->value[row*matrix->num_cols+col];

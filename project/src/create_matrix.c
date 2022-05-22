@@ -3,7 +3,7 @@
 #include "matrix.h"
 
 Matrix* create_matrix(size_t rows, size_t cols) {
-    if (!rows || !cols)
+    if (rows == 0 || cols == 0)
        return NULL;
     Matrix* new_matrix = malloc(sizeof(Matrix));
     if (!new_matrix) {

@@ -14,12 +14,14 @@ int det(const Matrix* matrix, double* val) {
     size_t n = matrix -> num_rows;
     if (n == 1) {
         *val = *(matrix -> value);
-    } else if (n == 2) {
+    }
+    if (n == 2) {
         *val = matrix -> value[0] * matrix -> value[3] - matrix -> value[2]*matrix -> value[1];
-    } else {
+    }
+    if (n > 2) {
         int minor_sign = 1;
         double determinant = 0;
-        double minor_det;
+        double minor_det = 1;
         for (size_t i = 0; i < n; i++) {
             Matrix* minor = delete_i_j(matrix, 0, i);
             if ((minor != NULL) && !(det(minor, &minor_det))) {
